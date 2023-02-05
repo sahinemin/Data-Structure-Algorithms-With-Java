@@ -9,7 +9,7 @@
         private static class Node<E> {
 
             /** The element stored at this node */
-            private E element;            // reference to the element stored at this node
+            private final E element;            // reference to the element stored at this node
 
             /** A reference to the subsequent node in the list */
             private Node<E> next;         // reference to the subsequent node in the list
@@ -118,14 +118,14 @@
         }
 
         public static void main(String[] args) {
-            SinglyLinkedList<Integer> list = new SinglyLinkedList<Integer>();
+            SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
             list.addLast(1);
             list.addLast(2);
             list.addLast(3);
             list.addLast(4);
-            System.out.println(list.toString());
+            System.out.println(list);
             list.reverse();
-            System.out.println(list.toString());
+            System.out.println(list);
 
         }
 
@@ -160,10 +160,10 @@
         public boolean equals(Object o) {
             if (o == null) return false;
             if (getClass() != o.getClass()) return false;
-            SinglyLinkedList other = (SinglyLinkedList) o;   // use nonparameterized type
+            SinglyLinkedList other = (SinglyLinkedList) o;   // use non-parameterized type
             if (size != other.size) return false;
-            Node walkA = head;                               // traverse the primary list
-            Node walkB = other.head;                         // traverse the secondary list
+            Node<E> walkA = head;                               // traverse the primary list
+            Node<E> walkB = other.head;                         // traverse the secondary list
             while (walkA != null) {
                 if (!walkA.getElement().equals(walkB.getElement())) return false; //mismatch
                 walkA = walkA.getNext();
@@ -191,7 +191,7 @@
 
         public int hashCode() {
             int h = 0;
-            for (Node walk=head; walk != null; walk = walk.getNext()) {
+            for (Node<E> walk = head; walk != null; walk = walk.getNext()) {
                 h ^= walk.getElement().hashCode();      // bitwise exclusive-or with element's code
                 h = (h << 5) | (h >>> 27);              // 5-bit cyclic shift of composite code
             }
